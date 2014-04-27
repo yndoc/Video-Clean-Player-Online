@@ -1,0 +1,30 @@
+{
+   "background": {
+      "scripts": [ "background.js" ]
+   },
+   "content_scripts": [ {
+      "exclude_globs": [ "http://www.kuaipan.cn/*" ],
+      "exclude_matches": [  ],
+      "include_globs": [  ],
+      "js": [ "script.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_idle"
+   } ],
+   "converted_from_user_script": true,
+   "description": "Video.Clean.Player Online yndoc修改版(Cinhoo代码Final),此版支持更多网站、更新的播放器，感谢openGG,Harv.c/Cinhoo,15536900等提供的源代码和播放器！",
+   "homepage_url":"http://bbs.kafan.cn/thread-1514537-1-1.html",
+   "icons": {
+      "128": "icon/icon128.png"
+   },
+   "manifest_version": 2,
+   "minimum_chrome_version": "32.0",
+   "name": "Video.Clean.Player.Online",
+   "browser_action": {
+		"default_icon" : "icon/icon64.png",
+		"default_popup" : "popup.html",
+		"default_title" : "Video.Clean.Player.Online"
+	},
+   "permissions": [ "proxy", "tabs", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
+   "version": "3.14.422",
+   "web_accessible_resources": [ "swf/*.swf" ]
+}
