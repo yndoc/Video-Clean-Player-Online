@@ -34,7 +34,6 @@
 		    'letv_c': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv0225.swf',
                     'tudou_olc': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/olc_8.swf',
                     'tudou_sp': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/sp.swf',
-                    'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
 //=======================本地版地址开始=====================================================================================
 //以下为本地版地址默认已使用（/* */）注释掉！
 /*                    'youku_loader': chrome.extension.getURL('swf/loader.swf'),
@@ -114,10 +113,6 @@
                         'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
                         'replace': this.players['letv']
                     },
-                    'letvpccs': {
-                        'find': /http:\/\/www.letv.com\/zt\/cmsapi\/playerapi\/pccs.*_(\d+)\.xml/i,
-                        'replace': this.players['letvpccs']
-                    },
                     'letv_hz': {
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
                         'replace': this.players['letv']
@@ -129,6 +124,10 @@
                     'letv_out': {
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper)\.swf/i,
                         'replace': this.players['letv_o']
+                    },
+                    'letv_skin': {
+                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
+                        'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
 /*                   'pplive': {
                         'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
