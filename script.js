@@ -24,6 +24,8 @@
                     'iqiyi5': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi5.swf',
                     'iqiyi_out': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi_out.swf',
                     'pps': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/pps.swf',
+                    'pplive': 'http://haoutil.googlecode.com/svn/trunk/player/pplive.swf',
+                    'pplive_live': 'http://haoutil.googlecode.com/svn/trunk/player/pplive_live.swf',
                     'tudou': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/tudou.swf',
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
 //已无效                    'letvviki':'http://code.taobao.org/svn/noadsplayer/trunk/Player/letvviki-YN.swf',
@@ -46,6 +48,8 @@
                     'iqiyi5': chrome.extension.getURL('swf/iqiyi5.swf'),
                     'iqiyi_out': chrome.extension.getURL('swf/iqiyi_out.swf'),
                     'pps': chrome.extension.getURL('swf/pps.swf'),
+                    'pplive': chrome.extension.getURL('swf/pplive.swf'),
+                    'pplive_live': chrome.extension.getURL('swf/pplive_live.swf'),
                     'tudou': chrome.extension.getURL('swf/tudou.swf'),
                     'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
                     'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
@@ -133,7 +137,7 @@
                         'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
                         'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
-/*                   'pplive': {
+                    'pplive': {
                         'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
                         'replace': this.players['pplive']
                     },
@@ -141,7 +145,6 @@
                         'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
                         'replace': this.players['pplive_live']
                     },
-*/
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
