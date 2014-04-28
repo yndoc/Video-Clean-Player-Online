@@ -99,6 +99,14 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
                         'replace': this.players['pps']
                     },
+                    'pplive': {
+                        'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
+                        'replace': this.players['pplive']
+                    },
+                    'pplive_live': {
+                        'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
+                        'replace': this.players['pplive_live']
+                    },
                     'tudou': {
                         'find': /^http:\/\/js\.tudouui\.com\/.*player[^\.]*\.swf/i,
                         'replace': this.players['tudou']
@@ -136,14 +144,6 @@
                     'letv_skin': {
                         'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
                         'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
-                    },
-                    'pplive': {
-                        'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
-                        'replace': this.players['pplive']
-                    },
-                    'pplive_live': {
-                        'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
-                        'replace': this.players['pplive_live']
                     },
 /*                    '17173': {
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file).swf/i,
