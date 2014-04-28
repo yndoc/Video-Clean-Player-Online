@@ -28,6 +28,8 @@
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
 //已无效                    'letvviki':'http://code.taobao.org/svn/noadsplayer/trunk/Player/letvviki-YN.swf',
                     'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
+                    '17173':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_Player_file.swf',
+                    '17173_Live':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_Player_stream.swf',
 //======================在线版地址结束======================================================================================
  //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
@@ -47,9 +49,11 @@
                     'tudou': chrome.extension.getURL('swf/tudou.swf'),
                     'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
                     'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
-                    'letv': chrome.extension.getURL('swf/letv.swf'),  
+                    'letv': chrome.extension.getURL('swf/letv.swf'),
 //已无效                    'letvviki': chrome.extension.getURL('swf/letvviki.swf'),  
                     'sohu': chrome.extension.getURL('swf/sohu.swf'),
+                    '17173': chrome.extension.getURL('swf/17173_Player_file.swf'),
+                    '17173_Live': chrome.extension.getURL('swf/17173_Player_stream.swf'),
 //========================本地版地址结束========================================================
 */
                };
@@ -141,7 +145,15 @@
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
-		    }
+		    },
+                    '17173': {
+                        'find':  /http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/Player_file\.swf/i,
+                        'replace': this.players['17173']
+                    },  
+                    '17173_Live': {
+                        're': /http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/Player_stream\.swf/i，
+                        'replace': this.players['17173_Live']
+                    }
                 }
             }
             return this._rules;
