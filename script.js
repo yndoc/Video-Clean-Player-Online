@@ -30,8 +30,8 @@
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
 //已无效                    'letvviki':'http://code.taobao.org/svn/noadsplayer/trunk/Player/letvviki-YN.swf',
                     'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
-                    '17173':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
-                    '17173_live':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
+//                    '17173':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
+//                    '17173_live':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
 //======================在线版地址结束======================================================================================
 //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
@@ -56,8 +56,8 @@
                     'letv': chrome.extension.getURL('swf/letv.swf'),
 //已无效                    'letvviki': chrome.extension.getURL('swf/letvviki.swf'),  
                     'sohu': chrome.extension.getURL('swf/sohu.swf'),
-                    '17173': chrome.extension.getURL('swf/17173.swf'),
-                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
+//                    '17173': chrome.extension.getURL('swf/17173.swf'),
+//                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
 //========================本地版地址结束========================================================
 */
                };
@@ -145,17 +145,18 @@
                         'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
                         'replace': this.players['pplive_live']
                     },
-                    'sohu': {
-                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
-                        'replace': this.players['sohu']
-		    },
-                    '17173': {
+/*                    '17173': {
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file).swf/i,
                         'replace': this.players['17173'] 
                     },
                     '17173_live': {
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*.swf/i,
                         'replace': this.players['17173_live']
+                    },
+*/
+                    'sohu': {
+                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
+                        'replace': this.players['sohu']
                     }
                 }
             }
