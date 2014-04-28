@@ -146,11 +146,11 @@
                         'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
 /*                    '17173': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file).swf/i,
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file)\.swf/i,
                         'replace': this.players['17173'] 
                     },
                     '17173_live': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*.swf/i,
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*\.swf/i,
                         'replace': this.players['17173_live']
                     },
 */
