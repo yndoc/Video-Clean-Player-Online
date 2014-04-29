@@ -28,15 +28,20 @@
                     'pplive_live': 'http://haoutil.googlecode.com/svn/trunk/player/pplive_live.swf',
                     'tudou': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/tudou.swf',
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
-                    'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
-                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
-                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
+//                    'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
+//                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
+//                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
 //======================在线版地址结束======================================================================================
  //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
                     'letv_c': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv0225.swf',
                     'tudou_olc': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/olc_8.swf',
                     'tudou_sp': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/sp.swf',
+                    
+                    'sohu': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
+                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
+                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
+                    
 //                    'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
 //=======================本地版地址开始=====================================================================================
 //以下为本地版地址默认已使用（/* */）注释掉！
@@ -54,9 +59,9 @@
                     'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
                     'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
                     'letv': chrome.extension.getURL('swf/letv.swf'),  
-                    'sohu': chrome.extension.getURL('swf/sohu.swf'),
-                    '17173': chrome.extension.getURL('swf/17173.swf'),
-                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
+//                    'sohu': chrome.extension.getURL('swf/sohu.swf'),
+//                    '17173': chrome.extension.getURL('swf/17173.swf'),
+//                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
 //========================本地版地址结束========================================================
 */
                };
