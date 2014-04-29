@@ -29,9 +29,9 @@
                     'tudou': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/tudou.swf',
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
 //已无效                    'letvviki':'http://code.taobao.org/svn/noadsplayer/trunk/Player/letvviki-YN.swf',
-                    'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
-//                    '17173':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
-//                    '17173_live':'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
+                    'sohu': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
+//                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
+//                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
 //======================在线版地址结束======================================================================================
 //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
