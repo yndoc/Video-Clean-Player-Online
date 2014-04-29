@@ -14,7 +14,7 @@
         get players() {
             if(!this._players) {
                 this._players = {
-、、=====================在线版地址开始=================================================
+//=====================在线版地址开始=================================================
 //双虚线之前为在线地址，请自行需该服务器地址！如使用本地版请注释掉双虚线以上地址
                     'youku_loader': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/loader.swf',
                     'youku_player': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/player.swf',
@@ -24,17 +24,20 @@
                     'iqiyi5': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi5.swf',
                     'iqiyi_out': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi_out.swf',
                     'pps': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/pps.swf',
+                    'pplive': 'http://haoutil.googlecode.com/svn/trunk/player/pplive.swf',
+                    'pplive_live': 'http://haoutil.googlecode.com/svn/trunk/player/pplive_live.swf',
                     'tudou': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/tudou.swf',
                     'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
-//已无效                    'letvviki':'http://code.taobao.org/svn/noadsplayer/trunk/Player/letvviki-YN.swf',
                     'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
+                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
+                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
 //======================在线版地址结束======================================================================================
  //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
-		    'letv_c': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv0225.swf',
+                    'letv_c': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv0225.swf',
                     'tudou_olc': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/olc_8.swf',
                     'tudou_sp': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/sp.swf',
-					'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
+//                    'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
 //=======================本地版地址开始=====================================================================================
 //以下为本地版地址默认已使用（/* */）注释掉！
 /*                    'youku_loader': chrome.extension.getURL('swf/loader.swf'),
@@ -45,12 +48,15 @@
                     'iqiyi5': chrome.extension.getURL('swf/iqiyi5.swf'),
                     'iqiyi_out': chrome.extension.getURL('swf/iqiyi_out.swf'),
                     'pps': chrome.extension.getURL('swf/pps.swf'),
+                    'pplive': chrome.extension.getURL('swf/pplive.swf'),
+                    'pplive_live': chrome.extension.getURL('swf/pplive_live.swf'),
                     'tudou': chrome.extension.getURL('swf/tudou.swf'),
                     'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
                     'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
                     'letv': chrome.extension.getURL('swf/letv.swf'),  
-//已无效                    'letvviki': chrome.extension.getURL('swf/letvviki.swf'),  
                     'sohu': chrome.extension.getURL('swf/sohu.swf'),
+                    '17173': chrome.extension.getURL('swf/17173.swf'),
+                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
 //========================本地版地址结束========================================================
 */
                };
@@ -92,6 +98,14 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
                         'replace': this.players['pps']
                     },
+                    'pplive': {
+                        'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
+                        'replace': this.players['pplive']
+                    },
+                    'pplive_live': {
+                        'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
+                        'replace': this.players['pplive_live']
+                    },
                     'tudou': {
                         'find': /^http:\/\/js\.tudouui\.com\/.*player[^\.]*\.swf/i,
                         'replace': this.players['tudou']
@@ -114,11 +128,15 @@
                         'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
                         'replace': this.players['letv']
                     },
-                    'letvpccs': {
+                    'letv_hz': {
+                        'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
+                        'replace': this.players['letv']
+                    },
+/*                    'letvpccs': {
                         'find': /http:\/\/www.letv.com\/zt\/cmsapi\/playerapi\/pccs.*_(\d+)\.xml/i,
                         'replace': this.players['letvpccs']
                     },
-
+*/
                     'letv_c': {
                         'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
                         'replace': this.players['letv_c']
@@ -127,15 +145,18 @@
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper)\.swf/i,
                         'replace': this.players['letv_o']
                     },
- /*                   'pplive': {
-                        'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
-                        'replace': this.players['pplive']
+                    'letv_skin': {
+                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
+                        'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
-                    'pplive_live': {
-                        'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
-                        'replace': this.players['pplive_live']
+                    '17173': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file)\.swf/i,
+                        'replace': this.players['17173'] 
                     },
- */
+                    '17173_live': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*\.swf/i,
+                        'replace': this.players['17173_live']
+                    },
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
