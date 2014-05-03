@@ -142,7 +142,7 @@
                         'replace': this.players['letv_c']
                     },
                     'letv_out': {
-                        'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper)\.swf/i,
+                        'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper|acfunletv[^\.]*)\.swf/i,
                         'replace': this.players['letv_o']
                     },
                     'letv_skin': {
