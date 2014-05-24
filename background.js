@@ -213,33 +213,37 @@ var refererslist = [{
 var proxylist = [{
 		name: "crossdomain_youku",
 		find: /http:\/\/static\.youku\.com\/.*?q?(player|loader)(_[^.]+)?\.swf/i,	//播放器载入地址
-		monitor:/http:\/\/v\.youku\.com\/crossdomain.xml/i,	//youku tudou实际访问的均是这个地址
+		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,	//youku tudou实际访问的均是这个地址
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_youku_out",
 		find: /^http:\/\/player\.youku\.com\/player\.php\/(.*\/)?sid\/([\w=]+)\/v\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain.xml/i,
+		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_tudou",
 		find: /.*PortalPlayer[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain.xml/i,
+		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_tudou_olc",
 		find: /^http:\/\/js\.tudouui\.com\/.*olc[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain.xml/i,
+		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_tudou_sp",
 		find: /.*olc[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain.xml/i,
+		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_sohu",
-		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/main\.swf/i,
-//		monitor:/.*skins\/s[\d]+\.swf/i,
+		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(Main|playershell)\.swf/i,
 		monitor: /http:\/\/live\.tv\.sohu\.com\/crossdomain\.xml/i,
+		extra: "crossdomain"
+	},{
+		name: "crossdomain_iqiyi|pps",
+		find: /http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))\.swf/i,
+		monitor: /http:\/\/data\.video\.qiyi\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	}
 ]
