@@ -24,7 +24,7 @@
 		"default_popup" : "popup.html",
 		"default_title" : "Video.Clean.Player.Online"
 	},
-   "permissions": [ "proxy", "tabs", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
-   "version": "3.14.429",
+   "permissions": [ "proxy", "tabs", "browsingData", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
+   "version": "3.14.525",
    "web_accessible_resources": [ "swf/*.swf" ]
 }

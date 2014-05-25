@@ -115,15 +115,6 @@
                         //'find': /^http:\/\/www\.tudou\.com\/.*\/v\.swf/i,
                         'replace': this.players['tudou_olc'] + '?tvcCode=-1&swfPath=' + this.players['tudou_sp']
                     },
-/*                    'letvcore': {
-                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/KLetvPlayer\.swf/i,
-                        'replace':  this.players['letvcore']
-                    },
-                    'letvviki': {
-                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/V[^\.]*\.swf/i,
-                        'replace': this.players['letvviki']
-                    },
-*/
                     'letv': {
                         'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
                         'replace': this.players['letv']
@@ -194,7 +185,7 @@
                     url: isFx ? player : 'https://query.yahooapis.com/v1/public/yql?format=json&q=' + encodeURIComponent('use"https://haoutil.googlecode.com/svn/trunk/firefox/tudou_redirect.yql.xml" as tudou; select * from tudou where url="' + player + '" and referer="' + window.location.href + '"'),
                     onload: function(response) {
                         var finalUrl = (isFx ? response.finalUrl : response.responseText);
-                        var match = finalUrl.match(/(iid|youkuid|resourceid|autoplay|snap_pic)=[^&]+/ig);
+                        var match = finalUrl.match(/(iid|youkuid|resourceid|autoplay|snap_pic|code)=[^&]+/ig);
                         if(match && !/error/i.test(finalUrl)) {
                             replace += '&' + match.join('&');
                             fn.reallyReplace.bind(fn, elem, find, replace)();
