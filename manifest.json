@@ -18,13 +18,13 @@
    },
    "manifest_version": 2,
    "minimum_chrome_version": "32.0",
-   "name": "Video.Clean.Player.Online",
+   "name": "Video.Clean.Player.Offline",
    "browser_action": {
 		"default_icon" : "icon/icon64.png",
 		"default_popup" : "popup.html",
-		"default_title" : "Video.Clean.Player.Online"
+		"default_title" : "Video.Clean.Player.Offline"
 	},
    "permissions": [ "proxy", "tabs", "browsingData", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
-   "version": "3.14.525",
+   "version": "3.14.607",
    "web_accessible_resources": [ "swf/*.swf" ]
 }
