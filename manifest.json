@@ -3,7 +3,7 @@
       "scripts": [ "background.js" ]
    },
    "content_scripts": [ {
-      "exclude_globs": [ "http://www.kuaipan.cn/*" ],
+      "exclude_globs": [  ],
       "exclude_matches": [  ],
       "include_globs": [  ],
       "js": [ "script.js" ],
