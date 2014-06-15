@@ -71,7 +71,7 @@
             if(!this._rules) {
                 this._rules = {
                     'youku_loader': {
-                        'find': /^http:\/\/static\.youku\.com(\/v[\d\.]+)?\/v\/swf\/loader\.swf/i,
+                        'find': /^http:\/\/static\.youku\.com(\/v[\d\.]*)?\/v\/swf\/loaders?\.swf/i,
                         'replace': this.players['youku_loader']
                     },
                     'youku_player': {
