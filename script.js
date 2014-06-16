@@ -83,7 +83,7 @@
                         'replace': this.players['youku_loader'] + '?showAd=0&VideoIDS=$1'
                     },
                     'ku6': {
-                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/v\.swf/i,
+                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/(v|player)\.swf/i,
                         'replace': this.players['ku6']
                     },
                     'ku6_out': {
@@ -94,9 +94,15 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
+                  //老版匹配，备用防遗漏！
+                  //'iqiyi_out': {
+                  //    'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
+                  //    'replace': this.players['iqiyi_out'] + '?vid=$3'
+                  //},
+                  //新版试用，可能匹配不全！
                     'iqiyi_out': {
-                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                        'replace': this.players['iqiyi_out'] + '?vid=$3'
+                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
+                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'pps': {
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
@@ -150,6 +156,10 @@
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
+                    },
+                    'sohu_out': {
+                        'find': /^http:\/\/.*\.sohu\.com\/.*\/v\.swf/i,
+                        'replace': this.players['sohu']  + '?'
                     }
                 }
             }
