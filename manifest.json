@@ -24,6 +24,6 @@
 		"default_title" : "Video.Clean.Player.Offline"
 	},
    "permissions": [ "proxy", "tabs", "browsingData", "webRequest", "webRequestBlocking", "http://*/*", "https://*/*" ],
-   "version": "3.14.610",
+   "version": "3.14.616",
    "web_accessible_resources": [ "swf/*.swf" ]
 }
