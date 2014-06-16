@@ -91,8 +91,10 @@
                         'replace': this.players['iqiyi']
                     },
                     'iqiyi_out': {
-                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                        'replace': this.players['iqiyi_out'] + '?vid=$3'
+//                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
+                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i
+//                        'replace': this.players['iqiyi_out'] + '?vid=$3'
+                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'pps': {
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
