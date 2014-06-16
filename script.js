@@ -67,7 +67,7 @@
             if(!this._rules) {
                 this._rules = {
                     'youku_loader': {
-                        'find': /^http:\/\/static\.youku\.com(\/v[\d\.]+)?\/v\/swf\/loader\.swf/i,
+                        'find': /^http:\/\/static\.youku\.com(\/v[\d\.]*)?\/v\/swf\/loaders?\.swf/i,
                         'replace': this.players['youku_loader']
                     },
                     'youku_player': {
@@ -79,7 +79,7 @@
                         'replace': this.players['youku_loader'] + '?showAd=0&VideoIDS=$1'
                     },
                     'ku6': {
-                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/.*\/\d+\/player\.swf/i,
+                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/(v|player)\.swf/i,
                         'replace': this.players['ku6']
                     },
                     'ku6_out': {
@@ -90,10 +90,13 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
-                    'iqiyi_out': {
+//老版匹配，备用防遗漏！
+//                    'iqiyi_out': {
 //                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i
 //                        'replace': this.players['iqiyi_out'] + '?vid=$3'
+//                    },
+                    'iqiyi_out': {//新版试用，可能匹配不全！
+                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
                         'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'pps': {
@@ -125,11 +128,6 @@
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
                         'replace': this.players['letv']
                     },
-/*                    'letvpccs': {
-                        'find': /http:\/\/www.letv.com\/zt\/cmsapi\/playerapi\/pccs.*_(\d+)\.xml/i,
-                        'replace': this.players['letvpccs']
-                    },
-*/
                     'letv_c': {
                         'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
                         'replace': this.players['letv_c']
@@ -153,7 +151,7 @@
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
-		    }
+                    }
                 }
             }
             return this._rules;
