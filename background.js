@@ -135,7 +135,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 							console.log("Referer Modifier : No need to change");
 							break;
 						}
-						case "referer_iqiyi":
+						case "referer_iqiyi":     //bilibili中iqiyi外链都已经下架，仅保留备用！
 						if (/qiyi\.com/i.test(details.requestHeaders[j].value)) {
 							console.log("Referer Modifier : No need to change");
 							break;
@@ -196,7 +196,7 @@ var refererslist = [{
 		find: /\.56\.com/i,
 		replace: "",
 		extra: "remove"
-	},{
+	},{  //bilibili中iqiyi外链都已经下架，仅保留备用！
 		name: "referer_iqiyi",
 		find: /cache\.video\.qiyi\.com/i,
 		replace: "",
@@ -207,7 +207,7 @@ var refererslist = [{
 /*格式：
 	name:规则名称
 	find:匹配(正则)表达式,当出现匹配地址时,启动crossdomain代理修改
-	monitor:匹配(正则)表达式,当出现匹配地址时,释放crossdomain代理
+	monitor:匹配(正则)表达式,当出现匹配地址时,释放crossdomain代理(接收完成后)
 	extra:额外的属性,crossdomain表示启动修改
 */
 var proxylist = [{
@@ -237,7 +237,7 @@ var proxylist = [{
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_sohu",
-		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(Main|playershell)\.swf/i,
+		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
 		monitor: /http:\/\/live\.tv\.sohu\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
