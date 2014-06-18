@@ -8,61 +8,42 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
+        iURL: chrome.extension.getURL('swf/'),  //本地地址,默认！
+//        iURL: 'http://code.taobao.org/svn/mujj/trunk/swf/',  //在线地址
+        iURL_on: 'http://code.taobao.org/svn/mujj/trunk/swf/', //必须在线的地址
         _players: null,
         _rules: null,
         _done: null,
         get players() {
             if(!this._players) {
                 this._players = {
-//=====================在线版地址开始=================================================
+//=====================在线版or本地版（由iURL决定）地址开始=================================================
 //双虚线之前为在线地址，请自行需该服务器地址！如使用本地版请注释掉双虚线以上地址
-/*                    'youku_loader': 'http://code.taobao.org/svn/mujj/trunk/swf/loader.swf',
-                    'youku_player': 'http://code.taobao.org/svn/mujj/trunk/swf/player.swf',
-                    'ku6': 'http://code.taobao.org/svn/mujj/trunk/swf/ku6.swf',
-                    'ku6_out': 'http://code.taobao.org/svn/mujj/trunk/swf/ku6_out.swf',
-                    'iqiyi': 'http://code.taobao.org/svn/mujj/trunk/swf/iqiyi.swf',
-                    'iqiyi5': 'http://code.taobao.org/svn/mujj/trunk/swf/iqiyi5.swf',
-                    'iqiyi_out': 'http://code.taobao.org/svn/mujj/trunk/swf/iqiyi_out.swf',
-                    'pps': 'http://code.taobao.org/svn/mujj/trunk/swf/pps.swf',
-                    'pplive': 'http://code.taobao.org/svn/mujj/trunk/swf/pplive.swf',
-                    'pplive_live': 'http://code.taobao.org/svn/mujj/trunk/swf/pplive_live.swf',
-                    'tudou': 'http://code.taobao.org/svn/mujj/trunk/swf/tudou.swf',
-                    'letv': 'http://code.taobao.org/svn/mujj/trunk/swf/letv.swf',
-//                    'sohu': 'http://code.taobao.org/svn/mujj/trunk/swf/sohu.swf',
-//                    '17173': 'http://code.taobao.org/svn/mujj/trunk/swf/17173.swf',
-//                    '17173_live': 'http://code.taobao.org/svn/mujj/trunk/swf/17173_live.swf',
-*/
-//======================在线版地址结束======================================================================================
+                    'youku_loader': this.iURL + 'loader.swf',
+                    'youku_player': this.iURL + 'player.swf',
+                    'ku6': this.iURL + 'ku6.swf',
+                    'ku6_out': this.iURL + 'ku6_out.swf',
+                    'iqiyi': this.iURL + 'iqiyi.swf',
+                    'iqiyi5': this.iURL + 'iqiyi5.swf',
+                    'iqiyi_out': this.iURL + 'iqiyi_out.swf',
+                    'pps': this.iURL + 'pps.swf',
+                    'pplive': this.iURL + 'pplive.swf',
+                    'pplive_live': this.iURL + 'pplive_live.swf',
+                    'tudou': this.iURL + 'tudou.swf',
+                    'letv': this.iURL + 'letv.swf',
+//                    'sohu':this.iURL + 'sohu.swf',
+//                    '17173': this.iURL + '17173/17173.swf', 
+//                    '17173_live': this.iURL + '17173/17173_live.swf',
+//======================必须在线版地址开始======================================================================================
 //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
-                    'letv_o': 'http://code.taobao.org/svn/mujj/trunk/swf/letv.swf',
-                    'letv_c': 'http://code.taobao.org/svn/mujj/trunk/swf/letv0225.swf',
-                    'tudou_olc': 'http://code.taobao.org/svn/mujj/trunk/swf/olc_8.swf',
-                    'tudou_sp': 'http://code.taobao.org/svn/mujj/trunk/swf/sp.swf',
-
-                    'sohu': 'http://code.taobao.org/svn/mujj/trunk/swf/sohu.swf',
-                    '17173': 'http://code.taobao.org/svn/mujj/trunk/swf/17173.swf',
-                    '17173_live': 'http://code.taobao.org/svn/mujj/trunk/swf/17173_live.swf',
-
-//=======================本地版地址开始=====================================================================================
-//以下为本地版地址默认已使用（/* */）注释掉！
-                    'youku_loader': chrome.extension.getURL('swf/loader.swf'),
-                    'youku_player': chrome.extension.getURL('swf/player.swf'),
-                    'ku6': chrome.extension.getURL('swf/ku6.swf'),
-                    'ku6_out': chrome.extension.getURL('swf/ku6_out.swf'),
-                    'iqiyi': chrome.extension.getURL('swf/iqiyi.swf'),
-                    'iqiyi5': chrome.extension.getURL('swf/iqiyi5.swf'),
-                    'iqiyi_out': chrome.extension.getURL('swf/iqiyi_out.swf'),
-                    'pps': chrome.extension.getURL('swf/pps.swf'),
-                    'pplive': chrome.extension.getURL('swf/pplive.swf'),
-                    'pplive_live': chrome.extension.getURL('swf/pplive_live.swf'),
-                    'tudou': chrome.extension.getURL('swf/tudou.swf'),
-//                    'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
-//                    'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
-                    'letv': chrome.extension.getURL('swf/letv.swf'),
-//                    'sohu': chrome.extension.getURL('swf/sohu.swf'),
-//                    '17173': chrome.extension.getURL('swf/17173.swf'),
-//                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
-//========================本地版地址结束========================================================
+                    'letv_o': this.iURL_on + 'letv.swf',
+                    'letv_c': this.iURL_on + 'letv0225.swf',
+                    'tudou_olc': this.iURL_on + 'olc_8.swf',
+                    'tudou_sp': this.iURL_on + 'sp.swf',
+                    'sohu': this.iURL_on + 'sohu.swf',
+                    '17173': this.iURL_on + '17173.swf', 
+                    '17173_live': this.iURL_on + '17173_live.swf',
+//========================必须在线版地址结束========================================================
                };
             }
             return this._players;
@@ -83,7 +64,7 @@
                         'replace': this.players['youku_loader'] + '?showAd=0&VideoIDS=$1'
                     },
                     'ku6': {
-                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/(v|player)\.swf/i,
+                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/.*\/\d+\/(v|player)\.swf/i,
                         'replace': this.players['ku6']
                     },
                     'ku6_out': {
@@ -94,14 +75,10 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
-                  //老版匹配，备用防遗漏！
-                  //'iqiyi_out': {
-                  //    'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                  //    'replace': this.players['iqiyi_out'] + '?vid=$3'
-                  //},
-                  //新版试用，可能匹配不全！
                     'iqiyi_out': {
+                        //'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
                         'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
+                        //'replace': this.players['iqiyi_out'] + '?vid=$3'
                         'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'pps': {
@@ -159,7 +136,7 @@
                     },
                     'sohu_out': {
                         'find': /^http:\/\/.*\.sohu\.com\/.*\/v\.swf/i,
-                        'replace': this.players['sohu']  + '?'
+                        'replace': this.players['sohu'] + '?'
                     }
                 }
             }
