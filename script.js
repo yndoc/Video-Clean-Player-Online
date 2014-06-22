@@ -8,57 +8,43 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
+        // iURL: chrome.extension.getURL('swf/'), //本地地址,默认！
+        iURL: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/', //在线地址供参考，暂使用糖醋咖啡的tcode地址！请自行替换为自己的！因被墙GCode地址已取不到！
+        iURL_on: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/', //必须在线的地址
         _players: null,
         _rules: null,
         _done: null,
         get players() {
             if(!this._players) {
                 this._players = {
-//=====================在线版地址开始=================================================
+//=====================在线版or本地版（由iURL决定） 地址开始=================================================
 //双虚线之前为在线地址，请自行需该服务器地址！如使用本地版请注释掉双虚线以上地址
-                    'youku_loader': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/loader.swf',
-                    'youku_player': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/player.swf',
-                    'ku6': 'http://haoutil.googlecode.com/svn/trunk/player/ku6.swf',
-                    'ku6_out': 'http://haoutil.googlecode.com/svn/trunk/player/ku6_out.swf',
-                    'iqiyi': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi.swf',
-                    'iqiyi5': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi5.swf',
-                    'iqiyi_out': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/iqiyi_out.swf',
-                    'pps': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/pps.swf',
-                    'pplive': 'http://haoutil.googlecode.com/svn/trunk/player/pplive.swf',
-                    'pplive_live': 'http://haoutil.googlecode.com/svn/trunk/player/pplive_live.swf',
-                    'tudou': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/tudou.swf',
-                    'letv': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/letv.swf',
-                    'sohu':'http://code.taobao.org/svn/noadsplayer/trunk/Player/sohu.swf',
-                    '17173': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173.swf',
-                    '17173_live': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/17173_live.swf',
-//======================在线版地址结束======================================================================================
+                    'youku_loader': this.iURL + 'loader.swf',
+                    'youku_player': this.iURL + 'player.swf',
+                    'ku6': this.iURL + 'ku6.swf',
+                    'ku6_out': this.iURL + 'ku6_out.swf',
+                    'iqiyi': this.iURL + 'iqiyi.swf',
+                    'iqiyi5': this.iURL + 'iqiyi5.swf',
+                    'iqiyi_out': this.iURL + 'iqiyi_out.swf',
+                    'pps': this.iURL + 'pps.swf',
+                    'pplive': this.iURL + 'pplive.swf',
+                    'pplive_live': this.iURL + 'pplive_live.swf',
+                    'tudou': this.iURL + 'tudou.swf',
+                    'letv': this.iURL + 'letv.swf',
+                    'sohu':this.iURL + 'sohu.swf',
+                    '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
+                    '17173_live': this.iURL + '17173/17173_live.swf',
+//======================必须在线版地址开始======================================================================================
  //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
-                    'letv_o': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv.swf',
-                    'letv_c': 'http://code.taobao.org/svn/noadsplayer/trunk/Player/letv0225.swf',
-                    'tudou_olc': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/olc_8.swf',
-                    'tudou_sp': 'http://haoutil.googlecode.com/svn/trunk/player/testmod/sp.swf',
-//                    'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
-//=======================本地版地址开始=====================================================================================
-//以下为本地版地址默认已使用（/* */）注释掉！
-/*                    'youku_loader': chrome.extension.getURL('swf/loader.swf'),
-                    'youku_player': chrome.extension.getURL('swf/player.swf'),
-                    'ku6': chrome.extension.getURL('swf/ku6.swf'),
-                    'ku6_out': chrome.extension.getURL('swf/ku6_out.swf'),
-                    'iqiyi': chrome.extension.getURL('swf/iqiyi.swf'),
-                    'iqiyi5': chrome.extension.getURL('swf/iqiyi5.swf'),
-                    'iqiyi_out': chrome.extension.getURL('swf/iqiyi_out.swf'),
-                    'pps': chrome.extension.getURL('swf/pps.swf'),
-                    'pplive': chrome.extension.getURL('swf/pplive.swf'),
-                    'pplive_live': chrome.extension.getURL('swf/pplive_live.swf'),
-                    'tudou': chrome.extension.getURL('swf/tudou.swf'),
-                    'tudou_olc': chrome.extension.getURL('swf/olc.swf'),
-                    'tudou_sp': chrome.extension.getURL('swf/sp.swf'),
-                    'letv': chrome.extension.getURL('swf/letv.swf'),  
-                    'sohu': chrome.extension.getURL('swf/sohu.swf'),
-                    '17173': chrome.extension.getURL('swf/17173.swf'),
-                    '17173_live': chrome.extension.getURL('swf/17173_live.swf'),
-//========================本地版地址结束========================================================
-*/
+                    'letv_o': this.iURL_on + 'letv.swf',
+                    'letv_c': this.iURL_on + 'letv0225.swf',
+                    'tudou_olc': this.iURL_on + 'olc_8.swf',
+                    'tudou_sp': this.iURL_on + 'sp.swf',
+//                    'sohu':this.iURL + 'sohu.swf',
+//                    '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
+//                    '17173_live': this.iURL + '17173/17173_live.swf',
+                    // 'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
+//========================必须在线版地址结束========================================================
                };
             }
             return this._players;
@@ -90,11 +76,10 @@
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
-//老版匹配，备用防遗漏！
-//                    'iqiyi_out': {
-//                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-//                        'replace': this.players['iqiyi_out'] + '?vid=$3'
-//                    },
+                    'iqiyi_out1': {//糖醋咖啡提供的匹配，测试！
+                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf/i,
+                        'replace': this.players['iqiyi_out'] + '?vid=$1'
+                    },
                     'iqiyi_out': {//新版试用，可能匹配不全！
                         'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
                         'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
@@ -148,9 +133,22 @@
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*\.swf/i,
                         'replace': this.players['17173_live']
                     },
+                    '17173_out': {//http://news.17173.com/content/2014-05-10/20140510053431476_1.shtml 但这个取不到地址！
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/.*\.swf/i,
+                        'replace': this.players['17173'] + '?autoplay=0'
+                    }
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
+                    }，
+                    //sohu外链目前样本不足，根据糖醋咖啡规则修改添加！测试
+                    'sohu_out_1': {
+                        'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf/i,
+                        'replace': this.players['sohu'] + '?'
+                    },
+                    'sohu_out_2': {
+                        'find': /^http:\/\/.*\.sohu\.com\/(\d+)\/v\.swf/i,
+                        'replace': this.players['sohu'] + '?vid=$1'
                     }
                 }
             }
