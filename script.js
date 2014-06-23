@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
     Function.prototype.bind = function() {
         var fn = this, args = Array.prototype.slice.call(arguments), obj = args.shift();
         return function() {
@@ -8,9 +8,9 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
-        // iURL: chrome.extension.getURL('swf/'), //本地地址,默认！
-        iURL: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/', //在线地址供参考，暂使用糖醋咖啡的tcode地址！请自行替换为自己的！因被墙GCode地址已取不到！
-        iURL_on: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/', //必须在线的地址
+//        iURL: chrome.extension.getURL('swf/'),  //本地地址,默认！
+        iURL: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/',   //在线地址供参考，内含播放器不全！请自行替换为自己的！因被墙GCode地址已取不到！
+        iURL_on: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/',   //必须在线的地址
         _players: null,
         _rules: null,
         _done: null,
@@ -31,19 +31,18 @@
                     'pplive_live': this.iURL + 'pplive_live.swf',
                     'tudou': this.iURL + 'tudou.swf',
                     'letv': this.iURL + 'letv.swf',
-                    'sohu':this.iURL + 'sohu.swf',
+                    'sohu':this.iURL + 'sohu/sohu.swf',
                     '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
                     '17173_live': this.iURL + '17173/17173_live.swf',
 //======================必须在线版地址开始======================================================================================
- //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
+//双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': this.iURL_on + 'letv.swf',
                     'letv_c': this.iURL_on + 'letv0225.swf',
                     'tudou_olc': this.iURL_on + 'olc_8.swf',
                     'tudou_sp': this.iURL_on + 'sp.swf',
-//                    'sohu':this.iURL + 'sohu.swf',
-//                    '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
-//                    '17173_live': this.iURL + '17173/17173_live.swf',
-                    // 'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
+   //                 'sohu': this.iURL_on + 'sohu.swf',
+   //                 '17173': this.iURL_on + '17173/17173.swf', 
+   //                 '17173_live': this.iURL_on + '17173/17173_live.swf',
 //========================必须在线版地址结束========================================================
                };
             }
@@ -73,16 +72,18 @@
                         'replace': this.players['ku6_out'] + '?vid=$2'
                     },
                     'iqiyi': {
-                        'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
-                    'iqiyi_out1': {//糖醋咖啡提供的匹配，测试！
+                    'iqiyi_out': {
+//                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
+                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
+//                        'replace': this.players['iqiyi_out'] + '?vid=$3'
+                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
+                    },
+                    'iqiyi_out1': {
                         'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf/i,
                         'replace': this.players['iqiyi_out'] + '?vid=$1'
-                    },
-                    'iqiyi_out': {//新版试用，可能匹配不全！
-                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
-                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'pps': {
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
@@ -106,7 +107,8 @@
                         'replace': this.players['tudou_olc'] + '?tvcCode=-1&swfPath=' + this.players['tudou_sp']
                     },
                     'letv': {
-                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
+                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?(?!live)[\w]{4}|swf)Player[^\.]*\.swf/i,
+                        //'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
                         'replace': this.players['letv']
                     },
                     'letv_hz': {
@@ -125,30 +127,33 @@
                         'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
                         'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
-                    '17173': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file)\.swf/i,
-                        'replace': this.players['17173'] 
-                    },
-                    '17173_live': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*\.swf/i,
-                        'replace': this.players['17173_live']
-                    },
-                    '17173_out': {//http://news.17173.com/content/2014-05-10/20140510053431476_1.shtml 但这个取不到地址！
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/.*\.swf/i,
-                        'replace': this.players['17173'] + '?autoplay=0'
-                    }
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
                         'replace': this.players['sohu']
-                    }，
-                    //sohu外链目前样本不足，根据糖醋咖啡规则修改添加！测试
-                    'sohu_out_1': {
+                    },
+                    'sohu_out': {
                         'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf/i,
                         'replace': this.players['sohu'] + '?'
                     },
                     'sohu_out_2': {
                         'find': /^http:\/\/.*\.sohu\.com\/(\d+)\/v\.swf/i,
                         'replace': this.players['sohu'] + '?vid=$1'
+                    },
+                    '17173': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d*)\/flash\/.*(file)\.swf/i,
+                        'replace': this.players['17173'] 
+                    },
+                    '17173_live': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d*)\/flash\/.*(stream).*\.swf/i,
+                        'replace': this.players['17173_live']
+                    },
+                    '17173_out': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/\w+\.swf/i,
+                        'replace': this.players['17173'] + '?autoplaye=0'
+                    },
+                    '17173_out1': {
+                        'find': /^(http:\/\/17173\.tv\.sohu\.com\/player[^\.]*\.swf)/i,
+                        'replace': this.players['17173']
                     }
                 }
             }
