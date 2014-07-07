@@ -148,12 +148,12 @@
                         'replace': this.players['17173_live']
                     },
                     '17173_out': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/\w+\.swf/i,
-                        'replace': this.players['17173'] + '?autoplaye=0'
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/（\w+）\.swf/i,
+                        'replace': this.players['17173_out'] + '?cid=$1'
                     },
                     '17173_out1': {
                         'find': /^(http:\/\/17173\.tv\.sohu\.com\/player[^\.]*\.swf)/i,
-                        'replace': this.players['17173']
+                        'replace': this.players['17173_out']
                     }
                 }
             }
