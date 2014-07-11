@@ -1,4 +1,4 @@
-﻿(function() {
+(function() {
     Function.prototype.bind = function() {
         var fn = this, args = Array.prototype.slice.call(arguments), obj = args.shift();
         return function() {
@@ -8,130 +8,117 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
-//        iURL: chrome.extension.getURL('swf/'),  //本地地址,默认！
-        iURL: 'http://code.taobao.org/svn/mujj/trunk/swf/',  //在线地址供参考，暂使用糖醋咖啡的tcode地址！请自行替换为自己的！因被墙GCode地址已取不到！
-        iURL_on: 'http://code.taobao.org/svn/mujj/trunk/swf/', //必须在线的地址
+        iURL: ['http://appbank.qiniudn.com/', 'http://gesion.duapp.com/player/', 'http://code.taobao.org/svn/mujj/trunk/swf/', chrome.extension.getURL('swf/')],  
+		 //在线地址供参考，请自行替换为自己的！因被墙GCode地址已取不到！iURL[0]表示[]中第一个地址（即在线），以此类推！
         _players: null,
         _rules: null,
         _done: null,
-        get players() {
-            if(!this._players) {
-                this._players = {
-//=====================在线版or本地版（由iURL决定） 地址开始=================================================
-//双虚线之前为在线地址，请自行需该服务器地址！如使用本地版请注释掉双虚线以上地址
-                    'youku_loader': this.iURL + 'loader.swf',
-                    'youku_player': this.iURL + 'player.swf',
-                    'ku6': this.iURL + 'ku6.swf',
-                    'ku6_out': this.iURL + 'ku6_out.swf',
-                    'iqiyi': this.iURL + 'iqiyi.swf',
-                    'iqiyi5': this.iURL + 'iqiyi5.swf',
-                    'iqiyi_out': this.iURL + 'iqiyi_out.swf',
-                    'pps': this.iURL + 'pps.swf',
-                    'pplive': this.iURL + 'pplive.swf',
-                    'pplive_live': this.iURL + 'pplive_live.swf',
-                    'tudou': this.iURL + 'tudou.swf',
-                    'letv': this.iURL + 'letv.swf',
-                    'sohu':this.iURL + 'sohu.swf',
-                    '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
-                    '17173_live': this.iURL + '17173/17173_live.swf',
-//======================必须在线版地址开始======================================================================================
- //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
-                    'letv_o': this.iURL_on + 'letv.swf',
-                    'letv_c': this.iURL_on + 'letv0225.swf',
-                    'tudou_olc': this.iURL_on + 'olc_8.swf',
-                    'tudou_sp': this.iURL_on + 'sp.swf',
-//                    'letvpccs': 'http://www.letv.com/zt/cmsapi/playerapi/pccs_sdk_$1.xml',
-//========================必须在线版地址结束========================================================
 
-               };
-            }
-            return this._players;
-        },
         get rules() {
             if(!this._rules) {
                 this._rules = {
                     'youku_loader': {
                         'find': /^http:\/\/static\.youku\.com(\/v[\d\.]*)?\/v\/swf\/loaders?\.swf/i,
-                        'replace': this.players['youku_loader']
+                        'replace': this.iURL[0] + 'loader.swf'
                     },
                     'youku_player': {
                         'find': /^http:\/\/static\.youku\.com(\/v[\d\.]+)?\/v\/swf\/q?player[^\.]*\.swf(\?.*)?/i,
-                        'replace': this.players['youku_loader'] + '$2'
+                        'replace': this.iURL[0] + 'loader.swf' + '$2'
                     },
                     'youku_out': {
                         'find': /^http:\/\/player\.youku\.com\/player\.php\/.*sid\/([\w=]+).*(\/v)?\.swf.*/i,
-                        'replace': this.players['youku_loader'] + '?showAd=0&VideoIDS=$1'
+                        'replace': this.iURL[0] + 'loader.swf' + '?showAd=0&VideoIDS=$1'
                     },
                     'ku6': {
                         'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/(v|player)\.swf/i,
-                        'replace': this.players['ku6']
+                        'replace': this.iURL[0] + 'ku6.swf'
                     },
                     'ku6_out': {
                         'find': /^http:\/\/player\.ku6\.com\/(inside|refer)\/([^\/]+)\/v\.swf.*/i,
-                        'replace': this.players['ku6_out'] + '?vid=$2'
+                        'replace': this.iURL[0] + 'ku6_out.swf' + '?vid=$2'
                     },
                     'iqiyi': {
-                        'find': /^http:\/\/www\.iqiyi\.com\/player\/\d+\/player\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
-                        'replace': this.players['iqiyi']
+                        'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        'replace': this.iURL[0] + 'iqiyi.swf'
                     },
-                    'iqiyi_out': {
-//                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
-//                        'replace': this.players['iqiyi_out'] + '?vid=$3'
-                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
+                    'iqiyi_out': {//如果有更多外链，请反馈给我，以便完善！
+                        'find': /^http:\/\/player\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*/i,
+                        'replace': this.iURL[0] + 'iqiyi_out.swf' + '?vid=$1&tvId=$2&autoplay=1'
+                    },
+                    'iqiyi_out1': {//如果有更多外链，请反馈给我，以便完善！这个baidu.iqiyi.com类型
+						//'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf|http:\/\/player\.video\.qiyi\.com\/qiyi/i,
+                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*\/shareplayer\.swf|qiyi)/i,
+                        'replace': this.iURL[0] + 'iqiyi_out.swf'
                     },
                     'pps': {
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
-                        'replace': this.players['pps']
+                        'replace': this.iURL[0] + 'pps.swf'
                     },
                     'pplive': {
                         'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
-                        'replace': this.players['pplive']
+                        'replace': this.iURL[0] + 'pplive.swf'
                     },
                     'pplive_live': {
                         'find': /^http:\/\/player\.pplive\.cn\/live\/.*\/player4live2\.swf/i,
-                        'replace': this.players['pplive_live']
+                        'replace': this.iURL[0] + 'pplive_live.swf'
                     },
                     'tudou': {
                         'find': /^http:\/\/js\.tudouui\.com\/.*player[^\.]*\.swf/i,
-                        'replace': this.players['tudou']
+                        'replace': this.iURL[0] + 'tudou.swf'
                     },
-                    'tudou_out': {
+                    'tudou_out': {//此项基本失效！
                         'find': /^http:\/\/www\.tudou\.com\/.*(\/v\.swf)?/i,
-                        //'find': /^http:\/\/www\.tudou\.com\/.*\/v\.swf/i,
-                        'replace': this.players['tudou_olc'] + '?tvcCode=-1&swfPath=' + this.players['tudou_sp']
+                        //'find': /^http:\/\/www\.tudou\.com\/.*&iid=(\d+)\/v\.swf/i,
+                        //'replace': this.iURL[0] + 'olc_8.swf' + '?iid=$1&swfPath=' + this.iURL[0] + 'sp.swf'
+                        'replace': this.iURL[0] + 'olc_8.swf'+ '?tvcCode=-1&swfPath=' + this.iURL[0] + 'sp.swf'
                     },
                     'letv': {
-                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?[\w]{4}|swf)Player[^\.]*\.swf/i,
-                        'replace': this.players['letv']
+                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?(?!live)[\w]{4}|swf)Player[^\.]*\.swf/i,
+                        'replace': this.iURL[0] + 'letv.swf'
                     },
                     'letv_hz': {
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
-                        'replace': this.players['letv']
+                        'replace': this.iURL[0] + 'letv.swf'
                     },
                     'letv_c': {
                         'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
-                        'replace': this.players['letv_c']
+                        'replace': this.iURL[0] + 'letv0225.swf'
                     },
                     'letv_out': {
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper|acfunletv[^\.]*)\.swf/i,
-                        'replace': this.players['letv_o']
+                        'replace': this.iURL[0] + 'letv.swf'
                     },
                     'letv_skin': {
                         'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
                         'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
                     },
-                    '17173': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file)\.swf/i,
-                        'replace': this.players['17173'] 
-                    },
-                    '17173_live': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(stream).*\.swf/i,
-                        'replace': this.players['17173_live']
-                    },
                     'sohu': {
                         'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
-                        'replace': this.players['sohu']
+                        'replace': this.iURL[0] + 'sohu.swf'
+                    },
+                    'sohu_out': {
+                        'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf(.*)/i,
+                        'replace': this.iURL[0] + 'sohu.swf' + '?$1'
+                    },
+                    'sohu_out_2': {
+                        'find': /^http:\/\/.*\.sohu\.com\/(\d*)\/v\.swf/i,
+                        'replace': this.iURL[0] + 'sohu.swf' + '?vid=$1'
+                    },
+                    '17173': {//PreloaderFile.swf
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/\d*\/flash\/.*(file)\.swf/i,
+                        'replace': this.iURL[0] + '17173/17173.swf' 
+                    },
+                    '17173_live': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/\d*\/flash\/.*(stream).*\.swf/i,
+                        'replace': this.iURL[0] + '17173/17173_live.swf'
+                    },
+                    '17173_out': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/(\w+)\.swf/i,
+                        'replace': this.iURL[0] + '17173/17173_out.swf' + '?cid=$1'
+                    },
+                    '17173_out1': {
+                        'find': /^(http:\/\/17173\.tv\.sohu\.com\/player[^\.]*\.swf)/i,
+                        'replace': this.iURL[0] + '17173/17173_out.swf'
                     }
                 }
             }
@@ -146,7 +133,7 @@
         initPreHandlers: function() {
             this.rules['iqiyi']['preHandle'] = function(elem, find, replace, player) {
                 if(document.querySelector('span[data-flashplayerparam-flashurl]')) {
-                    replace = this.players['iqiyi5'];
+                    replace = this.iURL[0] + 'iqiyi5.swf';
                 }
                 this.reallyReplace.bind(this, elem, find, replace)();
             }
