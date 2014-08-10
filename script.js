@@ -37,7 +37,7 @@
 //======================必须在线版地址开始======================================================================================
 //双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
                     'letv_o': this.iURL_on + 'letv.swf',
-                    'letv_c': this.iURL_on + 'letv0225.swf',
+//                    'letv_c': this.iURL_on + 'letv0225.swf',
                     'tudou_olc': this.iURL_on + 'olc_8.swf',
                     'tudou_sp': this.iURL_on + 'sp.swf',
    //                 'sohu': this.iURL_on + 'sohu.swf',
@@ -115,9 +115,9 @@
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
                         'replace': this.players['letv']
                     },
-                    'letv_c': {
-                        'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
-                        'replace': this.players['letv_c']
+                    'letv_duowan': {
+                        'find': /^http:\/\/assets\.dwstatic\.com\/.*\/vpp\.swf/i,
+                        'replace': "http://yuntv.letv.com/bcloud.swf"
                     },
                     'letv_out': {
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper|acfunletv[^\.]*)\.swf/i,
