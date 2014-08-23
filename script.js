@@ -72,18 +72,19 @@
                         'replace': this.players['ku6_out'] + '?vid=$2'
                     },
                     'iqiyi': {
-                        'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        'find': /^http:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        //'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.players['iqiyi']
                     },
                     'iqiyi_out': {
-//                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*[\?&]vid=)?([^\/&]+).*/i,
-                        'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
+                        'find': /^http:\/\/player\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*/i,
 //                        'replace': this.players['iqiyi_out'] + '?vid=$3'
-                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
+                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2'
                     },
                     'iqiyi_out1': {
-                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf/i,
-                        'replace': this.players['iqiyi_out'] + '?vid=$1'
+                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*\/shareplayer\.swf|qiyi)/i,
+                        //'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf/i,
+                        'replace': this.players['iqiyi_out']
                     },
                     'pps': {
                         'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
@@ -132,8 +133,8 @@
                         'replace': this.players['sohu']
                     },
                     'sohu_out': {
-                        'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf/i,
-                        'replace': this.players['sohu'] + '?'
+                        'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf(.*)/i,
+                        'replace': this.players['sohu'] + '?$1'
                     },
                     'sohu_out_2': {
                         'find': /^http:\/\/.*\.sohu\.com\/(\d+)\/v\.swf/i,
