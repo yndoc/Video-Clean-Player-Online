@@ -38,7 +38,7 @@
                         'replace': this.iURL[0] + 'ku6_out.swf' + '?vid=$2'
                     },
                     'iqiyi': {
-                        'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                    	'find': /^http:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.iURL[0] + 'iqiyi.swf'
                     },
                     'iqiyi_out': {//如果有更多外链，请反馈给我，以便完善！
@@ -80,10 +80,14 @@
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
                         'replace': this.iURL[0] + 'letv.swf'
                     },
-                    'letv_c': {
+                    'letv_duowan': {
+                        'find': /^http:\/\/assets\.dwstatic\.com\/.*\/vpp\.swf/i,
+                        'replace': "http://yuntv.letv.com/bcloud.swf"
+                    },
+                    /*'letv_c': {
                         'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
                         'replace': this.iURL[0] + 'letv0225.swf'
-                    },
+                    },*/
                     'letv_out': {
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper|acfunletv[^\.]*)\.swf/i,
                         'replace': this.iURL[0] + 'letv.swf'
