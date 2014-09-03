@@ -32,6 +32,7 @@
                     'tudou': this.iURL + 'tudou.swf',
                     'letv': this.iURL + 'letv.swf',
                     'sohu':this.iURL + 'sohu/sohu.swf',
+                    'sohu_live':this.iURL + 'sohu/sohu_live.swf',
                     '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
                     '17173_live': this.iURL + '17173/17173_live.swf',
 //======================必须在线版地址开始======================================================================================
@@ -125,11 +126,15 @@
                         'replace': this.players['letv_o']
                     },
                     'letv_skin': {
-                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
-                        'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
+                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!15)\d*\/newplayer\/\d+\/S?SLetvPlayer\.swf/i,
+                        'replace': 'http://player.letvcdn.com/p/201407/24/15/newplayer/1/SSLetvPlayer.swf'
+                    },
+                    'sohu_live': {
+                        'find': /http:\/\/tv\.sohu\.com\/upload\/swf\/(live\/|)\d+\/(main|PlayerShell)\.swf/i
+                        'replace': this.players['sohu_live']
                     },
                     'sohu': {
-                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
+                        'find': /^http:\/\/tv\.sohu\.com\/upload\/swf\/(?!(live|\d+)).*\d+\/(main|PlayerShell)\.swf/i,
                         'replace': this.players['sohu']
                     },
                     'sohu_out': {
