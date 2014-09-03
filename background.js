@@ -2,7 +2,8 @@
  * This file is part of ADkill Player Offline
  * <http://bbs.kafan.cn/thread-1514537-1-1.html>,
  * Copyright (C) yndoc xplsy 15536900
- *
+ * Some codes came from:
+ * "Proxy SwitchySharp" (Shyc2001 http://twitter.com/shyc2001)
  * ADkill Player Offline is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License version 3 as
  * published by the Free Software Foundation.
@@ -10,7 +11,7 @@
  * GNU General Public License, see <http://www.gnu.org/licenses/>.
  */
 
-var proxyflag = 0;	//proxy调试标记
+var proxyflag = "";  	//proxy调试标记,改为存储proxy的具体IP地址
 var cacheflag = false;	//用于确定是否需要清理缓存,注意由于隐身窗口的cookie与缓存都独立与普通窗口,因此使用API无法清理隐身窗口的缓存与cookie.
 //var xhr = new XMLHttpRequest();	
 
@@ -29,7 +30,7 @@ var pac = {
   }
 };
 //Permission Check + Proxy Control
-function ProxyControl(pram) {
+function ProxyControl(pram , ip) {
 	chrome.proxy.settings.get({incognito: false}, function(config){
 		//console.log(config.levelOfControl);
 		//console.log(config);
@@ -38,7 +39,7 @@ function ProxyControl(pram) {
 			case "controllable_by_this_extension":
 			// 可获得proxy控制权限，显示信息
 			console.log("Have Proxy Permission");
-			proxyflag = 1;
+//			proxyflag = 1;
 			if(pram == "set"){
 				console.log("Setup Proxy");
 				chrome.proxy.settings.set({value: pac, scope: "regular"}, function(details) {});
@@ -47,24 +48,25 @@ function ProxyControl(pram) {
 			case "controlled_by_this_extension":
 			// 已控制proxy，显示信息
 			console.log("Already controlled");
-			proxyflag = 2;
+//			proxyflag = 2;
 			if(pram == "unset"){
 				console.log("Release Proxy");
 				chrome.proxy.settings.clear({scope: "regular"});
-				FlushCache();
+				if(typeof(ip) == 'undefined') ip = "none";
+				FlushCache(ip);
 			}
 			break;
 			default:
 			// 未获得proxy控制权限，显示信息
 			console.log("No Proxy Permission");
 			console.log("Skip Proxy Control");
-			proxyflag = 0;
+//			proxyflag = 0;
 			break;
 		}
 	});
 }
-function FlushCache() {
-	if(cacheflag) {
+function FlushCache(ip) {
+	if(cacheflag && ip != proxyflag || ip == "none") {
 		chrome.browsingData.remove(
 			{},{
 			"cache": true,
@@ -95,6 +97,13 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 ["blocking"]);
 chrome.webRequest.onCompleted.addListener(function(details) {
 	for (var i = 0; i < proxylist.length; i++) {
+		//获取Proxy的具体IP地址
+		if(details.url.indexOf(baesite[1].slice(0,-6)) >= 0 && details.url.indexOf("crossdomain.xml") >= 0) {  //:xxxxx 6个字符,差不多就行
+			console.log(details.url);
+			proxyflag = details.ip;
+			console.log("Capture Proxy IP :" + proxyflag);
+			return;
+		}
 		if (proxylist[i].monitor.test(details.url) && proxylist[i].extra == "crossdomain") {
 			//console.log(details);
 			cacheflag = false;
@@ -103,7 +112,7 @@ chrome.webRequest.onCompleted.addListener(function(details) {
 			switch (proxylist[i].name) {
 				default:
 				console.log("Now Release Proxy ");
-				ProxyControl("unset");
+				ProxyControl("unset" , details.ip);
 				break;
 			}
 			break;
@@ -135,7 +144,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 							console.log("Referer Modifier : No need to change");
 							break;
 						}
-						case "referer_iqiyi":
+						case "referer_iqiyi":     //bilibili中iqiyi外链都已经下架，仅保留备用！
 						if (/qiyi\.com/i.test(details.requestHeaders[j].value)) {
 							console.log("Referer Modifier : No need to change");
 							break;
@@ -196,7 +205,7 @@ var refererslist = [{
 		find: /\.56\.com/i,
 		replace: "",
 		extra: "remove"
-	},{
+	},{  //bilibili中iqiyi外链都已经下架，仅保留备用！
 		name: "referer_iqiyi",
 		find: /cache\.video\.qiyi\.com/i,
 		replace: "",
@@ -207,12 +216,12 @@ var refererslist = [{
 /*格式：
 	name:规则名称
 	find:匹配(正则)表达式,当出现匹配地址时,启动crossdomain代理修改
-	monitor:匹配(正则)表达式,当出现匹配地址时,释放crossdomain代理
+	monitor:匹配(正则)表达式,当出现匹配地址时,释放crossdomain代理(接收完成后)
 	extra:额外的属性,crossdomain表示启动修改
 */
 var proxylist = [{
 		name: "crossdomain_youku",
-		find: /http:\/\/static\.youku\.com\/.*?q?(player|loader)(_[^.]+)?\.swf/i,	//播放器载入地址
+		find: /http:\/\/static\.youku\.com\/.*?q?(player|loaders?)(_[^.]+)?\.swf/i,	//播放器载入地址
 		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,	//youku tudou实际访问的均是这个地址
 		extra: "crossdomain"
 	},{
@@ -237,17 +246,17 @@ var proxylist = [{
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_sohu",
-		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(Main|playershell)\.swf/i,
-		monitor: /http:\/\/live\.tv\.sohu\.com\/crossdomain\.xml/i,
+		find: /http:\/\/(tv\.sohu\.com\/|61\.135\.176\.223.*).*\/(main|PlayerShell)\.swf/i,
+		monitor: /http:\/\/(photocdn|live\.tv)\.sohu\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
-		name: "crossdomain_iqiyi|pps",
-		find: /http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))\.swf/i,
+		name: "crossdomain_iqiyi|pps-1",
+		find: /https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf/i,
 		monitor: /http:\/\/data\.video\.qiyi\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_iqiyi|pps-2",
-		find: /http:\/\/www\.iqiyi\.com\/player\/cupid\/common\/icon\.swf/i,
+		find: /https?:\/\/www\.iqiyi\.com\/player\/cupid\/common\/icon\.swf/i,
 		monitor: /http:\/\/sf\.video\.qiyi\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	}
