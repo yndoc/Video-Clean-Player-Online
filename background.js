@@ -132,7 +132,7 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 //载入获取Proxy的IP地址
 function getProxyIP() {
 		var xhr = new XMLHttpRequest();
-	url = "http://yk.pp.navi.youku.com:80/crossdomain.xml";
+		url = "http://yk.pp.navi.youku.com:80/crossdomain.xml";
 		xhr.open("GET", url, true);
 		xhr.send();
 }
