@@ -8,7 +8,7 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
-        iURL: ['http://appbank.qiniudn.com/', 'http://gesion.duapp.com/player/', 'http://code.taobao.org/svn/mujj/trunk/swf/', chrome.extension.getURL('swf/')],  
+        iURL: ['http://noads.mujj.us/swf/', 'http://gesion.duapp.com/player/', 'http://code.taobao.org/svn/mujj/trunk/swf/', chrome.extension.getURL('swf/')],  
 		 //在线地址供参考，请自行替换为自己的！因被墙GCode地址已取不到！iURL[0]表示[]中第一个地址（即在线），以此类推！
         _players: null,
         _rules: null,
@@ -38,20 +38,21 @@
                         'replace': this.iURL[0] + 'ku6_out.swf' + '?vid=$2'
                     },
                     'iqiyi': {
-                    	'find': /^http:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        'find': /^https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
+                        //'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.iURL[0] + 'iqiyi.swf'
                     },
                     'iqiyi_out': {//如果有更多外链，请反馈给我，以便完善！
-                        'find': /^http:\/\/player\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*/i,
+                        'find': /^https?:\/\/player\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*/i,
                         'replace': this.iURL[0] + 'iqiyi_out.swf' + '?vid=$1&tvId=$2&autoplay=1'
                     },
                     'iqiyi_out1': {//如果有更多外链，请反馈给我，以便完善！这个baidu.iqiyi.com类型
 						//'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf|http:\/\/player\.video\.qiyi\.com\/qiyi/i,
-                        'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*\/shareplayer\.swf|qiyi)/i,
+                        'find': /^https?:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*\/shareplayer\.swf|qiyi)/i,
                         'replace': this.iURL[0] + 'iqiyi_out.swf'
                     },
                     'pps': {
-                        'find': /^http:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
+                        'find': /^https?:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
                         'replace': this.iURL[0] + 'pps.swf'
                     },
                     'pplive': {
@@ -73,7 +74,7 @@
                         'replace': this.iURL[0] + 'olc_8.swf'+ '?tvcCode=-1&swfPath=' + this.iURL[0] + 'sp.swf'
                     },
                     'letv': {
-                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/(?!(Live|seed))((S[\w]{2,3})?(?!live)[\w]{4}|swf)Player[^\.]*\.swf/i,
+                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/((?!(Live|seed))((C|S)[\w]{2,3})?(?!Live)[\w]{4}|swf)Player*\.swf/i,
                         'replace': this.iURL[0] + 'letv.swf'
                     },
                     'letv_hz': {
@@ -93,12 +94,16 @@
                         'replace': this.iURL[0] + 'letv.swf'
                     },
                     'letv_skin': {
-                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!1456)\d*\/newplayer\/\d+\/SLetvPlayer\.swf/i,
-                        'replace': 'http://player.letvcdn.com/p/201403/05/1456/newplayer/1/SLetvPlayer.swf'
+                        'find': /http:\/\/.*letv[\w]*\.com\/p\/\d+\/\d+\/(?!15)\d*\/newplayer\/\d+\/S?SLetvPlayer\.swf/i,
+                        'replace': 'http://player.letvcdn.com/p/201407/24/15/newplayer/1/SSLetvPlayer.swf'
                     },
                     'sohu': {
-                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
-                        'replace': this.iURL[0] + 'sohu.swf'
+                        'find': /^http:\/\/tv\.sohu\.com\/upload\/swf\/(?!(live|\d+)).*\d+\/(main|PlayerShell)\.swf/i,
+                        'replace': this.iURL[0] + 'sohu/sohu.swf'
+                    },
+                    'sohu_live': {
+                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/(live\/|)\d+|61\.135\.176\.223.*\/.*)\/(main|PlayerShell)\.swf|http:\/\/static\.hdslb\.com\/sohu\.swf/i,
+                        'replace': this.iURL[0] + 'sohu/sohu_live.swf'
                     },
                     'sohu_out': {
                         'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf(.*)/i,
