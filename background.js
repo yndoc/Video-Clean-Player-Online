@@ -13,7 +13,7 @@
 
 var proxyflag = "";  	//proxy调试标记,改为存储proxy的具体IP地址
 var cacheflag = false;	//用于确定是否需要清理缓存,注意由于隐身窗口的cookie与缓存都独立与普通窗口,因此使用API无法清理隐身窗口的缓存与cookie.
-var baesite = [''];     //储存Proxy的具体IP地址
+var proxyurl = 'yk.pp.navi.youku.com:80'; //储存Proxy的具体URL地址
 //var xhr = new XMLHttpRequest();
 
 //====================================Crossdomin Spoofer Test
@@ -99,7 +99,7 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 chrome.webRequest.onCompleted.addListener(function(details) {
 	for (var i = 0; i < proxylist.length; i++) {
 		//获取Proxy的具体IP地址
-		if(details.url.indexOf(baesite[0].slice(0,-6)) >= 0 && details.url.indexOf("crossdomain.xml") >= 0) {  //:xxxxx 6个字符,差不多就行
+		if(details.url.indexOf(proxyurl.slice(0,-6)) >= 0 && details.url.indexOf("crossdomain.xml") >= 0) { //:xxxxx 6个字符,差不多就行
 			console.log(details.url);
 			proxyflag = details.ip;
 			console.log("Capture Proxy IP :" + proxyflag);
@@ -131,12 +131,10 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 });
 //载入获取Proxy的IP地址
 function getProxyIP() {
-	if(baesite[0] != '') {
 		var xhr = new XMLHttpRequest();
-		url = "http://" + baesite[0] + "/crossdomain.xml";
+		url = "http://yk.pp.navi.youku.com:80/crossdomain.xml";
 		xhr.open("GET", url, true);
 		xhr.send();
-	}
 }
 //====================================Headers Modifier Test
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
