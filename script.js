@@ -8,7 +8,7 @@
 
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
-        iURL: ['http://appbank.qiniudn.com/','http://gesion.duapp.com/player/', 'http://code.taobao.org/svn/mujj/trunk/swf/','http://noads.mujj.us/swf/', chrome.extension.getURL('swf/')],  
+        iURL: ['http://noads.aliapp.com/swf/', 'http://code.taobao.org/svn/mujj/trunk/swf/', chrome.extension.getURL('swf/')],  
 	//在线地址供参考，请自行替换为自己的！因被墙GCode地址已取不到！iURL[0]表示[]中第一个地址（即在线），以此类推！
         _players: null,
         _rules: null,
