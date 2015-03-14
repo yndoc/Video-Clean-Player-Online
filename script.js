@@ -9,6 +9,7 @@
     function YoukuAntiAds() {}
     YoukuAntiAds.prototype = {
 <<<<<<< HEAD
+<<<<<<< HEAD
         iURL: ['http://noads.mujj.us/swf/', 'http://gesion.duapp.com/player/', 'http://code.taobao.org/svn/mujj/trunk/swf/', chrome.extension.getURL('swf/')],  
 		 //在线地址供参考，请自行替换为自己的！因被墙GCode地址已取不到！iURL[0]表示[]中第一个地址（即在线），以此类推！
         _players: null,
@@ -19,13 +20,22 @@
         iURL: chrome.extension.getURL('swf/'),  //本地地址,默认！
 //        iURL: 'http://code.taobao.org/svn/mujj/trunk/swf/',  //在线地址
         iURL_on: 'http://code.taobao.org/svn/mujj_test/trunk/swf/', //必须在线的地址
+=======
+//        iURL: chrome.extension.getURL('swf/'),  //本地地址,默认！
+        iURL: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/',   //在线地址供参考，内含播放器不全！请自行替换为自己的！因被墙GCode地址已取不到！
+        iURL_on: 'http://code.taobao.org/svn/noadsplayer/trunk/Player/',   //必须在线的地址
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
         _players: null,
         _rules: null,
         _done: null,
         get players() {
             if(!this._players) {
                 this._players = {
+<<<<<<< HEAD
 //=====================在线版or本地版（由iURL决定）地址开始=================================================
+=======
+//=====================在线版or本地版（由iURL决定） 地址开始=================================================
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 //双虚线之前为在线地址，请自行需该服务器地址！如使用本地版请注释掉双虚线以上地址
                     'youku_loader': this.iURL + 'loader.swf',
                     'youku_player': this.iURL + 'player.swf',
@@ -39,6 +49,7 @@
                     'pplive_live': this.iURL + 'pplive_live.swf',
                     'tudou': this.iURL + 'tudou.swf',
                     'letv': this.iURL + 'letv.swf',
+<<<<<<< HEAD
 //                    'sohu':this.iURL + 'sohu.swf',
 //                    '17173': this.iURL + '17173/17173.swf', 
 //                    '17173_live': this.iURL + '17173/17173_live.swf',
@@ -51,6 +62,21 @@
                     'sohu': this.iURL_on + 'sohu/sohu.swf',
                     '17173': this.iURL_on + '17173/17173.swf', 
                     '17173_live': this.iURL_on + '17173/17173_live.swf',
+=======
+                    'sohu':this.iURL + 'sohu/sohu.swf',
+                    'sohu_live':this.iURL + 'sohu/sohu_live.swf',
+                    '17173': this.iURL + '17173/17173.swf', //建议把17173所有播放器放到指定文件夹以便维护！'17173/' 指代文件夹（如无请去除！）。下同。
+                    '17173_live': this.iURL + '17173/17173_live.swf',
+//======================必须在线版地址开始======================================================================================
+//双虚线之间的地址不能换为本地地址，否则外联出错，请尽量更改为自己的服务器地址！
+                    'letv_o': this.iURL_on + 'letv.swf',
+//                    'letv_c': this.iURL_on + 'letv0225.swf',
+                    'tudou_olc': this.iURL_on + 'olc_8.swf',
+                    'tudou_sp': this.iURL_on + 'sp.swf',
+   //                 'sohu': this.iURL_on + 'sohu.swf',
+   //                 '17173': this.iURL_on + '17173/17173.swf', 
+   //                 '17173_live': this.iURL_on + '17173/17173_live.swf',
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 //========================必须在线版地址结束========================================================
                };
             }
@@ -78,10 +104,14 @@
                     },
                     'ku6': {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         'find': /^http:\/\/player\.ku6cdn\.com\/default\/loader\/.*\/(v|player)\.swf/i,
                         'replace': this.iURL[0] + 'ku6.swf'
 =======
                         'find': /^http:\/\/player\.ku6cdn\.com\/default\/.*\/\d+\/(v|player)\.swf/i,
+=======
+                        'find': /^http:\/\/player\.ku6cdn\.com\/default\/.*\/(v|player)\.swf/i,
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                         'replace': this.players['ku6']
 >>>>>>> test
                     },
@@ -90,6 +120,7 @@
                         'replace': this.iURL[0] + 'ku6_out.swf' + '?vid=$2'
                     },
                     'iqiyi': {
+<<<<<<< HEAD
                         'find': /^https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         //'find': /^http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*)\.swf|http:\/\/www\.bilibili\.tv\/iqiyi\.swf/i,
                         'replace': this.iURL[0] + 'iqiyi.swf'
@@ -109,6 +140,18 @@
                         'find': /^http:\/\/player\.video\.qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*$/i,
                         //'replace': this.players['iqiyi_out'] + '?vid=$3'
                         'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2&autoplay=1'
+=======
+                        'find': /^https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*)|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf/i,
+                        'replace': this.players['iqiyi']
+                    },
+                    'iqiyi_out': {
+                        'find': /^https?:\/\/player\.video\.i?qiyi\.com\/([^\/]*)\/.*tvId=([^-]*).*/i,
+                        'replace': this.players['iqiyi_out'] + '?vid=$1&tvId=$2'
+                    },
+                    'iqiyi_out_2': {
+                        'find': /^https?:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/(.*\/shareplayer\.swf|qiyi)/i,
+                        'replace': this.players['iqiyi_out']
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     },
                     'iqiyi_out2': {
                         'find': /^http:\/\/(player|dispatcher)\.video\.i?qiyi\.com\/.*\/shareplayer\.swf/i,
@@ -117,7 +160,11 @@
                     },
                     'pps': {
                         'find': /^https?:\/\/www\.iqiyi\.com\/player\/cupid\/.*\/pps[\w]+.swf/i,
+<<<<<<< HEAD
                         'replace': this.iURL[0] + 'pps.swf'
+=======
+                        'replace': this.players['pps']
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     },
                     'pplive': {
                         'find': /^http:\/\/player\.pplive\.cn\/ikan\/.*\/player4player2\.swf/i,
@@ -128,11 +175,17 @@
                         'replace': this.iURL[0] + 'pplive_live.swf'
                     },
                     'tudou': {
+<<<<<<< HEAD
                         'find': /^http:\/\/js\.tudouui\.com\/.*player[^\.]*\.swf/i,
                         'replace': this.iURL[0] + 'tudou.swf'
+=======
+                        'find': /^http:\/\/js\.tudouui\.com\/.*PortalPlayer[^\.]*\.swf/i,
+                        'replace': this.players['tudou']
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     },
                     'tudou_out': {//此项基本失效！
                         'find': /^http:\/\/www\.tudou\.com\/.*(\/v\.swf)?/i,
+<<<<<<< HEAD
                         //'find': /^http:\/\/www\.tudou\.com\/.*&iid=(\d+)\/v\.swf/i,
                         //'replace': this.iURL[0] + 'olc_8.swf' + '?iid=$1&swfPath=' + this.iURL[0] + 'sp.swf'
                         'replace': this.iURL[0] + 'olc_8.swf'+ '?tvcCode=-1&swfPath=' + this.iURL[0] + 'sp.swf'
@@ -140,11 +193,19 @@
                     'letv': {
                         'find': /^http:\/\/.*letv[\w]*\.com\/.*\/((?!(Live|seed))((C|S)[\w]{2,3})?(?!Live)[\w]{4}|swf)Player*\.swf/i,
                         'replace': this.iURL[0] + 'letv.swf'
+=======
+                        'replace': this.players['tudou_olc'] + '?tvcCode=-1&swfPath=' + this.players['tudou_sp']
+                    },
+                    'letv': {
+                        'find': /^http:\/\/.*letv[\w]*\.com\/.*\/((?!(Live|seed))((C|S)[\w]{2,3})?(?!Live)[\w]{4}|swf)Player*\.swf/i,
+                        'replace': this.players['letv']
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     },
                     'letv_hz': {
                         'find': /^http:\/\/.*letv[\w]*\.com\/(hz|.*player\/(s)?sdkletv)player\.swf.*/i,
                         'replace': this.iURL[0] + 'letv.swf'
                     },
+<<<<<<< HEAD
 <<<<<<< HEAD
                     'letv_duowan': {
                         'find': /^http:\/\/assets\.dwstatic\.com\/.*\/vpp\.swf/i,
@@ -157,6 +218,12 @@
                         'find': /^http:\/\/.*(letv[\w]*|dwstatic)\.com\/.*(cloud|vpp)\.swf/i,
                         'replace': this.iURL[0] + 'letv0225.swf'
                     },*/
+=======
+                    'letv_duowan': {
+                        'find': /^http:\/\/assets\.dwstatic\.com\/.*\/vpp\.swf/i,
+                        'replace': 'http://yuntv.letv.com/bcloud.swf'
+                    },
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     'letv_out': {
                         'find': /^http:\/\/.*\.letvimg\.com\/.*\/(letvbili|lbplayer|letv-wrapper|acfunletv[^\.]*)\.swf/i,
                         'replace': this.iURL[0] + 'letv.swf'
@@ -167,6 +234,7 @@
                     },
                     'sohu': {
                         'find': /^http:\/\/tv\.sohu\.com\/upload\/swf\/(?!(live|\d+)).*\d+\/(main|PlayerShell)\.swf/i,
+<<<<<<< HEAD
                         'replace': this.iURL[0] + 'sohu/sohu.swf'
                     },
 <<<<<<< HEAD
@@ -193,17 +261,29 @@
                     'sohu_out_1': {
                         'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf/i,
                         'replace': this.players['sohu'] + '?'
+=======
+                        'replace': this.players['sohu']
+                    },
+                    'sohu_live': {
+                        'find': /^http:\/\/(tv\.sohu\.com\/upload\/swf\/(live\/|)\d+|61\.135\.176\.223.*\/.*)\/(main|PlayerShell)\.swf/i,
+                        'replace': this.players['sohu_live']
+                    },
+                    'sohu_out_1': {
+                        'find': /^http:\/\/.*\.sohu\.com\/my\/v\.swf(.*)/i,
+                        'replace': this.players['sohu'] + '?$1'
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     },
                     'sohu_out_2': {
                         'find': /^http:\/\/.*\.sohu\.com\/(\d+)\/v\.swf/i,
                         'replace': this.players['sohu'] + '?vid=$1'
                     },
                     '17173': {
-                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d+)\/flash\/.*(file)\.swf/i,
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d*)\/flash\/PreloaderFile\.swf/i,
                         'replace': this.players['17173'] 
 >>>>>>> test
                     },
                     '17173_live': {
+<<<<<<< HEAD
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/\d*\/flash\/.*(stream).*\.swf/i,
                         'replace': this.iURL[0] + '17173/17173_live.swf'
                     },
@@ -219,6 +299,18 @@
                         'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/.*\.swf/i,
                         'replace': this.players['17173'] + '?autoplay=0'
 >>>>>>> test
+=======
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/(\d*)\/flash\/Player_stream(_firstpage)?\.swf/i,
+                        'replace': this.players['17173_live']
+                    },
+                    '17173_out_1': {
+                        'find': /^http:\/\/f\.v\.17173cdn\.com\/player_f2\/(\w+)\.swf/i,
+                        'replace': this.players['17173_out'] + '?cid=$1'
+                    },
+                    '17173_out_2': {
+                        'find': /^(http:\/\/17173\.tv\.sohu\.com\/player[^\.]*\.swf)/i,
+                        'replace': this.players['17173_out']
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
                     }
                 }
             }

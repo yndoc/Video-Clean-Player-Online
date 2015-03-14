@@ -13,7 +13,11 @@
 
 var proxyflag = "";  	//proxy调试标记,改为存储proxy的具体IP地址
 var cacheflag = false;	//用于确定是否需要清理缓存,注意由于隐身窗口的cookie与缓存都独立与普通窗口,因此使用API无法清理隐身窗口的缓存与cookie.
+<<<<<<< HEAD
 var baesite = ['',''];  //此标记仅为定义用
+=======
+var proxyurl = 'yk.pp.navi.youku.com:80'; //储存Proxy的具体URL地址
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 //var xhr = new XMLHttpRequest();
 
 //====================================Crossdomin Spoofer Test
@@ -99,7 +103,11 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
 chrome.webRequest.onCompleted.addListener(function(details) {
 	for (var i = 0; i < proxylist.length; i++) {
 		//获取Proxy的具体IP地址
+<<<<<<< HEAD
 		if(details.url.indexOf(baesite[1].slice(0,-6)) >= 0 && details.url.indexOf("crossdomain.xml") >= 0) {  //:xxxxx 6个字符,差不多就行
+=======
+		if(details.url.indexOf(proxyurl.slice(0,-6)) >= 0 && details.url.indexOf("crossdomain.xml") >= 0) { //:xxxxx 6个字符,差不多就行
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 			console.log(details.url);
 			proxyflag = details.ip;
 			console.log("Capture Proxy IP :" + proxyflag);
@@ -131,12 +139,19 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 });
 //载入获取Proxy的IP地址
 function getProxyIP() {
+<<<<<<< HEAD
 	if(baesite[1] != '') {
 		var xhr = new XMLHttpRequest();
 		url = "http://" + baesite[1] + "/crossdomain.xml";
 		xhr.open("GET", url, true);
 		xhr.send();
 	}
+=======
+		var xhr = new XMLHttpRequest();
+		url = "http://yk.pp.navi.youku.com:80/crossdomain.xml";
+		xhr.open("GET", url, true);
+		xhr.send();
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 }
 //====================================Headers Modifier Test
 chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
@@ -257,6 +272,7 @@ var proxylist = [{
 	},{
 		name: "crossdomain_sohu",
 <<<<<<< HEAD
+<<<<<<< HEAD
 		find: /http:\/\/(tv\.sohu\.com\/|61\.135\.176\.223.*).*\/(main|PlayerShell)\.swf/i,
 		monitor: /http:\/\/(photocdn|live\.tv)\.sohu\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
@@ -271,6 +287,14 @@ var proxylist = [{
 		name: "crossdomain_iqiyi|pps-1",
 		find: /http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))\.swf/i,
 >>>>>>> test
+=======
+		find: /http:\/\/(tv\.sohu\.com\/|61\.135\.176\.223.*).*\/(main|PlayerShell)\.swf/i,
+		monitor: /http:\/\/(photocdn|live\.tv)\.sohu\.com\/crossdomain\.xml/i,
+		extra: "crossdomain"
+	},{
+		name: "crossdomain_iqiyi|pps-1",
+		find: /https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf/i,
+>>>>>>> 030fffd07b756e4bfbfa738b69de39a1ef7372a2
 		monitor: /http:\/\/data\.video\.qiyi\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{

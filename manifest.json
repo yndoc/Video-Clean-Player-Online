@@ -7,6 +7,7 @@
       "exclude_matches": [  ],
       "include_globs": [  ],
       "js": [ "script.js" ],
+      "css": ["css/custom.css"],
       "matches": [ "http://*/*", "https://*/*" ],
       "run_at": "document_idle"
    } ],
