@@ -229,43 +229,44 @@ var refererslist = [{
 */
 var proxylist = [{
 		name: "crossdomain_youku",
-		find: /http:\/\/static\.youku\.com\/.*?q?(player|loaders?)(_[^.]+)?\.swf/i,	//播放器载入地址
+		find: /http:\/\/static\.youku\.com\/.*(q?player|loaders?|\w{13})[^\.]*\.swf/i,	//播放器载入地址
 		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,	//youku tudou实际访问的均是这个地址
-		extra: "crossdomain"
-	},{
-		name: "crossdomain_youku_out",
-		find: /^http:\/\/player\.youku\.com\/player\.php\/(.*\/)?sid\/([\w=]+)\/v\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_tudou",
 		find: /.*PortalPlayer[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
-		extra: "crossdomain"
-	},{
-		name: "crossdomain_tudou_olc",
-		find: /^http:\/\/js\.tudouui\.com\/.*olc[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
+		exfind: /http:\/\/v\.youku\.com\/crossdomain\.xml/i,
+		monitor: /http:\/\/www\.tudou\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_tudou_sp",
 		find: /.*olc[^\.]*\.swf/i,
-		monitor:/http:\/\/v\.youku\.com\/crossdomain\.xml/i,
+		exfind: /http:\/\/v\.youku\.com\/crossdomain\.xml/i,
+		monitor: /http:\/\/www\.tudou\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_sohu",
-		find: /http:\/\/(tv\.sohu\.com\/|61\.135\.176\.223.*).*\/(main|PlayerShell)\.swf/i,
+		find: /http:\/\/(tv\.sohu\.com\/|(\d+\.){3}\d+(:\d+)?).*\/(Main|PlayerShell)[^\.]*\.swf/i,
 		monitor: /http:\/\/(photocdn|live\.tv)\.sohu\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_iqiyi|pps-1",
-		find: /https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf/i,
-		monitor: /http:\/\/data\.video\.qiyi\.com\/crossdomain\.xml/i,
+		find: /https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))|common\/flashplayer\/\d+\/((PPS)?Main|Share)?Player[^\.]*)\.swf/i,
+		//monitor: /notavailable/i,
+		monitor: /\w{32}\.\w{3}.*qyid=\w{32}.*ran=\d+/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_iqiyi|pps-2",
 		find: /https?:\/\/www\.iqiyi\.com\/player\/cupid\/common\/icon\.swf/i,
-		monitor: /http:\/\/sf\.video\.qiyi\.com\/crossdomain\.xml/i,
+		monitor: /notavailable/i,
+		//monitor: /http:\/\/sf\.video\.qiyi\.com\/crossdomain\.xml/i,
+		extra: "crossdomain"
+	},{
+		name: "crossdomain_iqiyi|pps-main",
+		find: /https?:\/\/.*(iqiyi|pps)\.com\/.*\.htm/i,
+		exfind: /\w{32}\.\w{3}.*qyid=\w{32}.*ran=\d+/i,
+		monitor: /policy\.video\.iqiyi\.com\/crossdomain\.xml/i,
+		//monitor: /.*\/(vodpb\.gif\?url|adpb\.gif\?pbtp=show)/i,
 		extra: "crossdomain"
 	}
 ]
