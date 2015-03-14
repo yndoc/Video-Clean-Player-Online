@@ -1,4 +1,4 @@
-Video-Clean-Player-Online
+Video-Clean-Player-Offline
 =========================
 
-在线版本（来自卡饭cinhoo大的油猴脚本）
+离线版本（来自卡饭yndoc的在线版）

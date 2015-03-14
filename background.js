@@ -256,12 +256,21 @@ var proxylist = [{
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_sohu",
+<<<<<<< HEAD
 		find: /http:\/\/(tv\.sohu\.com\/|61\.135\.176\.223.*).*\/(main|PlayerShell)\.swf/i,
 		monitor: /http:\/\/(photocdn|live\.tv)\.sohu\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
 		name: "crossdomain_iqiyi|pps-1",
 		find: /https?:\/\/www\.iqiyi\.com\/(player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))|common\/flashplayer\/\d+\/(Main)?Player_.*)\.swf/i,
+=======
+		find: /http:\/\/(tv\.sohu\.com\/upload\/swf\/.*\d+|.*\/test\/player)\/(main|playershell)\.swf/i,
+		monitor: /http:\/\/live\.tv\.sohu\.com\/crossdomain\.xml/i,
+		extra: "crossdomain"
+	},{
+		name: "crossdomain_iqiyi|pps-1",
+		find: /http:\/\/www\.iqiyi\.com\/player\/(\d+\/Player|[a-z0-9]*|cupid\/.*\/(pps[\w]+|clear))\.swf/i,
+>>>>>>> test
 		monitor: /http:\/\/data\.video\.qiyi\.com\/crossdomain\.xml/i,
 		extra: "crossdomain"
 	},{
